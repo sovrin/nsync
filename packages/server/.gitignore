@@ -1,0 +1,4 @@
+tests/store/*
+store/*
+
+node_modules

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "moduleResolution": "node",
+    "rootDir": "src/",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "lib/",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "commonjs"
+  }
+}
