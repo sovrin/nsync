@@ -19,6 +19,7 @@
     "@types/node": "^13.7.7",
     "micro": "^9.3.4",
     "micro-r": "^1.1.0",
+    "morgan": "^1.9.1",
     "supertest": "^4.0.2",
     "tape": "^4.13.2",
     "tar-stream": "^2.1.1",

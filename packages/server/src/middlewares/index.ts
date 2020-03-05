@@ -3,6 +3,7 @@ import storer from './storer';
 import receiver from './receiver';
 import extractor from './extractor';
 import dispatcher from './dispatcher';
+import logger from './logger';
 
 /**
  * User: Oleg Kamlowski <oleg.kamlowski@thomann.de>
@@ -15,4 +16,5 @@ export {
     receiver,
     extractor,
     dispatcher,
+    logger,
 }

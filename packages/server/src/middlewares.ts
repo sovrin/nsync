@@ -1,4 +1,4 @@
-import {receiver, storer, initializer, extractor, dispatcher} from './middlewares/index';
+import {receiver, storer, initializer, extractor, dispatcher, logger} from './middlewares/index';
 import config from "./config";
 
 const storage = config('store.path');
@@ -9,6 +9,7 @@ const storage = config('store.path');
  * Time: 19:48
  */
 export default [
+    () => logger(),
     () => initializer(),
     () => dispatcher(),
     () => receiver(),
