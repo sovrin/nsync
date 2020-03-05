@@ -51,7 +51,7 @@ const factory = (path) => {
      */
     const add = (name: string, version: string): Link => {
         const key = tokenize(name, version);
-        const cursor = resolve(path, name, version) + '.tgz';
+        const cursor = resolve(path, name, version);
         const entity = linker(cursor);
 
         store[key] = entity;
