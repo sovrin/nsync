@@ -1,7 +1,7 @@
 import {IncomingMessage} from "http";
 
 interface Req extends IncomingMessage {
-    id: string;
+
 }
 
 /**

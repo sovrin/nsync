@@ -39,7 +39,7 @@ tape(`GET /health`, ({plan, same, end, error}) => {
 tape(`POST /upload; should return 201`, ({plan, end, error}) => {
     request(router)
         .post(`/upload`)
-        .attach('file', __dirname + '/assets/foobar#v1.1.1.zip')
+        .attach('file', __dirname + '/assets/server-1.0.0.tgz')
         .expect(201)
         .end((err) => {
             error(err, 'No error');
@@ -53,7 +53,7 @@ tape(`POST /upload; should return 201`, ({plan, end, error}) => {
 tape(`POST /upload; should return 409`, ({plan, end, error}) => {
     request(router)
         .post(`/upload`)
-        .attach('file', __dirname + '/assets/foobar#v1.1.1.zip')
+        .attach('file', __dirname + '/assets/server-1.0.0.tgz')
         .expect(409)
         .end((err) => {
             error(err, 'No error');
@@ -67,7 +67,7 @@ tape(`POST /upload; should return 409`, ({plan, end, error}) => {
 tape(`PUT /upload; should return 200`, ({plan, end, error}) => {
     request(router)
         .put(`/upload`)
-        .attach('file', __dirname + '/assets/foobar#v1.1.1.zip')
+        .attach('file', __dirname + '/assets/server-1.0.0.tgz')
         .expect(200)
         .end((err) => {
             error(err, 'No error');

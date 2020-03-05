@@ -1,3 +1,9 @@
 !/**/.gitkeep
 
+package-lock.json
+node_modules
+
+**/tests/store/*
+**/store/*
+
 .idea

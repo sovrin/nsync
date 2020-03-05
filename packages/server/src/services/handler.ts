@@ -1,35 +1,18 @@
-import {extname, basename} from 'path';
 import Store from "../types/Store";
-import Upload from "../types/Upload";
 import Link from "../types/Link";
 import Handler from "../types/Handler";
+import Extractor from "../types/Extractor";
 
 /**
  *
- * @param upload
+ * @param buffer
  * @param store
+ * @param extract
  */
-const factory = (upload: Upload, store: Store): Handler => {
-    const {data, buffer} = upload;
-
-    /**
-     *
-     * @param data
-     */
-    const process = (data: string) => {
-        const [name, tail] = data.split('#');
-        const extension = extname(tail);
-        const version = basename(tail, extension);
-
-        return {
-            extension,
-            version,
-            name,
-            date: new Date()
-        }
-    };
-
-    const {name, version, date, extension} = process(data);
+const factory = async (buffer: Buffer, store: Store, extract: Extractor): Promise<Handler> => {
+    const {name, version} = await (extract('package/package.json')
+        .then(JSON.parse))
+    ;
 
     /**
      *
@@ -44,19 +27,13 @@ const factory = (upload: Upload, store: Store): Handler => {
     const create = (): Link => {
         let entity;
 
-        try {
-            entity = store.create(name, version);
-            entity.write(buffer);
-        } catch (e) {
-            console.error(e);
-
-            return null;
-        }
+        entity = store.create(name, version);
+        entity.write(buffer);
 
         return entity;
     };
 
-    return  {
+    return {
         exists,
         create,
     }

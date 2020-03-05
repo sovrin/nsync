@@ -1,21 +1,21 @@
-import {expose} from "../../container";
 import handlerFactory from '../../services/handler';
-import dispatcherFactory, {HTTP_STATUS} from '../../services/dispatcher';
+import {HTTP_STATUS} from "../../middlewares/dispatcher";
+import Req from "../../types/Req";
+import Res from "../../types/Res";
 
 /**
  * User: Oleg Kamlowski <oleg.kamlowski@thomann.de>
  * Date: 12.01.2020
  * Time: 20:05
  */
-export default async (req, res) => {
-    const {upload, store} = expose(req);
-    const {dispatch} = dispatcherFactory(req, res);
+export default async (req: Req, res: Res) => {
+    const {local: {buffer, store, extract, dispatch}} = res;
 
-    if (!upload) {
+    if (!buffer) {
         return await dispatch(HTTP_STATUS.INTERNAL_SERVER_ERROR);
     }
 
-    const {exists, create} = handlerFactory(upload, store);
+    const {exists, create} = await handlerFactory(buffer, store, extract);
 
     if (exists()) {
         try {
@@ -23,6 +23,8 @@ export default async (req, res) => {
                 return await dispatch(HTTP_STATUS.OK);
             }
         } catch (e) {
+            console.error(e);
+
             return await dispatch(HTTP_STATUS.INTERNAL_SERVER_ERROR);
         }
 

@@ -1,14 +1,14 @@
 import {resolve} from "path";
 import {stat, dir, mkdir} from "../utils";
-import link from './link';
+import linker from '../services/linker';
 import Link from "../types/Link";
-import Store from "../types/Store";
+import Res from "../types/Res";
+import Req from "../types/Req";
 
 /**
  *
- * @param path
  */
-const factory = (path: string): Store => {
+const factory = (path) => {
     const store = {};
 
     /**
@@ -51,8 +51,8 @@ const factory = (path: string): Store => {
      */
     const add = (name: string, version: string): Link => {
         const key = tokenize(name, version);
-        const cursor = resolve(path, name, version);
-        const entity = link(cursor);
+        const cursor = resolve(path, name, version) + '.tgz';
+        const entity = linker(cursor);
 
         store[key] = entity;
 
@@ -109,17 +109,24 @@ const factory = (path: string): Store => {
 
     dir(path).map(map);
 
-    return {
-        create,
-        exists,
-        remove,
-        get,
+    /**
+     *
+     */
+    return async (req: Req, res: Res, next) => {
+        res.local.store = {
+            exists,
+            create,
+            remove,
+            get,
+        };
+
+        next();
     }
 };
 
 /**
  * User: Oleg Kamlowski <oleg.kamlowski@thomann.de>
  * Date: 10.01.2020
- * Time: 21:27
+ * Time: 19:26
  */
 export default factory;

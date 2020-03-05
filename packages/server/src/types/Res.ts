@@ -1,7 +1,8 @@
 import {ServerResponse} from "http";
+import Local from "./Local";
 
 interface Res extends ServerResponse {
-
+    local: Local,
 }
 
 /**

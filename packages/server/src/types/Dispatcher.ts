@@ -1,5 +1,5 @@
 interface Dispatcher {
-    dispatch(status: number, payload?: any): Promise<void>
+    (status: number, payload?: any): Promise<void>
 }
 
 /**
