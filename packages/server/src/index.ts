@@ -12,9 +12,9 @@ const {version} = require('../package.json');
  */
 (async () => {
     const router = await routerFactory();
-    const {listen} = micro(router);
+    const server = micro(router);
 
-    listen(port, () => {
+    server.listen(port, () => {
         console.info(`> nsync-server:${version} listening on port ${port}`);
     });
 })();
